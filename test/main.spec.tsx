@@ -21,6 +21,32 @@ describe('main.tsx', () => {
   beforeEach(() => {
     // Clear all mocks before each test
     mockCreateRoot.mockClear()
+
+    // Mock implementation of window.matchMedia
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: jest.fn().mockImplementation(query => {
+        let onchangeHandler: ((e: MediaQueryListEvent) => void) | null = null // Holds the reference to the event handler
+
+        return {
+          matches: query.includes('dark'), // Simulate dark mode if query includes 'dark'
+          media: query,
+          onchange: null,
+          addListener: jest.fn(), // Deprecated but included for completeness
+          removeListener: jest.fn(), // Deprecated but included for completeness
+          addEventListener: jest.fn((_event, handler) => {
+            // Assign the handler to onchangeHandler
+            onchangeHandler = handler
+          }),
+          removeEventListener: jest.fn((_event, handler) => {
+            // Clear onchangeHandler if it matches the handler
+            if (onchangeHandler === handler) {
+              onchangeHandler = null
+            }
+          }),
+        }
+      }),
+    })
   })
 
   it('renders without crashing', () => {
