@@ -27,3 +27,5 @@ target
 *.iml
 .husky
 coverage
+
+.env
