@@ -1,14 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
-import { updatePWAThemeColor, watchThemeChanges } from './theme'
-
-updatePWAThemeColor()
-watchThemeChanges()
+import App from '@/core/presentation/App'
+import { AppThemeProvider } from '@/core/presentation/theme/AppThemeProvider'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <AppThemeProvider>
+      <App />
+    </AppThemeProvider>
   </React.StrictMode>,
 )
