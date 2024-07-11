@@ -25,7 +25,6 @@ dist-ssr
 
 target
 *.iml
-.husky
 coverage
 
 .env

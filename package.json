@@ -11,7 +11,7 @@
     "cov": "jest --coverage",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx}' 'test/**/*.{js,jsx,ts,tsx}'",
-    "prepare": "husky && chmod +x setupHusky.sh && ./setupHusky.sh"
+    "prepare": "husky"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
