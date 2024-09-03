@@ -74,7 +74,7 @@ function App() {
           boxSizing: 'border-box',
         }}
       />
-      <Box ref={mathContainerRef} sx={{ padding: '0 10px' }}>
+      <Box ref={mathContainerRef} sx={{ padding: '0 10px', color: textboxText }}>
         {/* Escape backslashes before rendering Markdown */}
         <ReactMarkdown>{escapeBackslashes(content)}</ReactMarkdown>
       </Box>
