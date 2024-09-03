@@ -4,8 +4,11 @@ import renderMathInElement from 'katex/contrib/auto-render'
 import { Box, Typography } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import { getTextboxBackground, getTextboxText } from '@/core/presentation/theme/themeColors.ts'
+import { useUpdatePWAThemeColor } from './theme/useUpdatePWAThemeColor'
 
 function App() {
+  useUpdatePWAThemeColor()
+
   const [content, setContent] = useState('')
 
   const mathContainerRef = useRef(null)
