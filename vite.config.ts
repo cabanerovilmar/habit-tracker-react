@@ -58,4 +58,16 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Split large dependencies into separate chunks
+          katex: ['katex'],
+          react: ['react', 'react-dom'], // Example splitting React into its own chunk
+          // Add more libraries as needed
+        },
+      },
+    },
+  },
 })
