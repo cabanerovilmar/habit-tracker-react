@@ -37,8 +37,8 @@ function App() {
   // Add event listener for Ctrl key
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
-      // Check if the Ctrl key is pressed
-      if (event.ctrlKey) {
+      // Check if the Ctrl key and the V key are pressed together
+      if (event.ctrlKey && event.key === 'v') {
         handleClearInput()
       }
     }
