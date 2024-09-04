@@ -15,6 +15,10 @@ function App() {
 
   const theme = useTheme()
 
+  const handleClearInput = () => {
+    setContent('')
+  }
+
   useEffect(() => {
     // Render KaTeX math inside the parsed Markdown content
     if (mathContainerRef.current) {
@@ -29,6 +33,24 @@ function App() {
       })
     }
   }, [content]) // Re-render math when content changes
+
+  // Add event listener for Ctrl key
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      // Check if the Ctrl key is pressed
+      if (event.ctrlKey) {
+        handleClearInput()
+      }
+    }
+
+    // Add the event listener when the component mounts
+    window.addEventListener('keydown', handleKeyPress)
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress)
+    }
+  }, []) // Empty dependency array means this runs once when the component mounts
 
   // Function to escape LaTeX backslashes
   const escapeBackslashes = (text: string) => {
@@ -54,7 +76,7 @@ function App() {
         },
       }}
     >
-      <Typography variant="h5" gutterBottom color={textboxText}>
+      <Typography variant="h5" gutterBottom color={textboxText} onClick={handleClearInput} sx={{ cursor: 'pointer' }}>
         Markdown Editor
       </Typography>
       <textarea
