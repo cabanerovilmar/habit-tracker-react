@@ -2,7 +2,7 @@ import React from 'react'
 import { ThemeProvider } from '@mui/material/styles'
 import useThemeStore from '@/core/presentation/store'
 import { CssBaseline } from '@mui/material'
-import { useCreateMuiTheme } from './create-mui-theme'
+import { useCreateMuiTheme } from './useCreateMuiTheme'
 
 type Props = {
   children: React.ReactNode
