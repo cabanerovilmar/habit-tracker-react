@@ -7,10 +7,12 @@ import { getTextboxBackground, getTextboxText } from '@/core/presentation/theme/
 import { useUpdatePWAThemeColor } from '@/core/presentation/theme/useUpdatePWAThemeColor'
 import useThemeStore from '@/core/presentation/store'
 
+import data from './02-compound-interest.json'
+
 export default function MarkdownEditor() {
   useUpdatePWAThemeColor()
 
-  const [content, setContent] = useState('')
+  const [content, setContent] = useState(data.content)
 
   const mathContainerRef = useRef(null)
 

@@ -65,6 +65,7 @@ export default defineConfig({
           // Split large dependencies into separate chunks
           katex: ['katex'],
           react: ['react', 'react-dom'], // Example splitting React into its own chunk
+          reactMarkdown: ['react-markdown'],
           // Add more libraries as needed
         },
       },
