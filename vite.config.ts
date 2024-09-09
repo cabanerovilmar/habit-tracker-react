@@ -66,6 +66,9 @@ export default defineConfig({
           katex: ['katex'],
           react: ['react', 'react-dom'], // Example splitting React into its own chunk
           reactMarkdown: ['react-markdown'],
+          emotion: ['@emotion/react', '@emotion/styled'],
+          mui: ['@mui/material'],
+          zustand: ['zustand'],
           // Add more libraries as needed
         },
       },
