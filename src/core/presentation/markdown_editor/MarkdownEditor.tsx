@@ -138,6 +138,21 @@ export default function MarkdownEditor() {
             fontWeight: 'normal',
           }}
         >
+          <style>
+            {`
+              p {
+                margin-bottom: 0;
+                padding: 0;
+              }
+              li:first-of-type > p:first-of-type {
+                margin-top: -16px;
+              }
+              ol {
+                padding-left: 16px;
+              }
+              
+            `}
+          </style>
           <ReactMarkdown>{escapeBackslashes(content)}</ReactMarkdown>
         </p>
       </Box>
