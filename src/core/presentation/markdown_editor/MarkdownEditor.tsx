@@ -128,12 +128,9 @@ export default function MarkdownEditor() {
         }}
       >
         {/* Escape backslashes before rendering Markdown */}
-        <p
+        <Box
           style={{
             fontSize: '16px',
-            color: textboxText,
-            fontFamily:
-              'ui-sans-serif, -apple-system, system-ui, Segoe UI, Helvetica, Apple Color Emoji, Arial, sans-serif, Segoe UI Emoji, Segoe UI Symbol',
             tabSize: 4,
             fontWeight: 'normal',
           }}
@@ -154,7 +151,7 @@ export default function MarkdownEditor() {
             `}
           </style>
           <ReactMarkdown>{escapeBackslashes(content)}</ReactMarkdown>
-        </p>
+        </Box>
       </Box>
     </Box>
   )

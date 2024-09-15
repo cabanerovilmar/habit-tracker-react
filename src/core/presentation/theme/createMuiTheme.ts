@@ -7,14 +7,20 @@ export function createMuiTheme(isDarkMode: boolean) {
       background: {
         default: isDarkMode ? '#212121' : '#ffffff', // App background
       },
+      text: {
+        primary: isDarkMode ? '#ececec' : '#0d0d0d', // Default text color
+      },
+    },
+    typography: {
+      fontFamily: '-apple-system, system-ui, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif',
+      allVariants: {
+        color: isDarkMode ? '#ececec' : '#0d0d0d', // Set default text color for all typography variants
+      },
     },
     components: {
       MuiInputBase: {
         styleOverrides: {
-          root: {
-            backgroundColor: isDarkMode ? '#2f2f2f' : '#f4f4f4', // Textbox background
-            color: isDarkMode ? '#ececec' : '#0d0d0d', // Text color inside the textbox
-          },
+          root: {},
         },
       },
       MuiButton: {
