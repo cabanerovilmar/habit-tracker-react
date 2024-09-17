@@ -69,6 +69,7 @@ export default defineConfig({
           emotion: ['@emotion/react', '@emotion/styled'],
           mui: ['@mui/material'],
           zustand: ['zustand'],
+          mantine: ['@mantine/core', '@mantine/hooks'],
           // Add more libraries as needed
         },
       },

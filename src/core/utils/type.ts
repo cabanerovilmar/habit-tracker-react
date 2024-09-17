@@ -1,1 +1,1 @@
-export type DarkModeSetting = 'on' | 'off' | 'system'
+export type DarkModeSetting = 'dark' | 'light' | 'auto'

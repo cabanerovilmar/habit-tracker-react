@@ -1,22 +1,18 @@
+import '@mantine/core/styles.css'
 import React from 'react'
-import { ThemeProvider } from '@mui/material/styles'
-import useThemeStore from '@/core/presentation/store'
-import { CssBaseline } from '@mui/material'
-import { useCreateMuiTheme } from './useCreateMuiTheme'
+import { MantineProvider } from '@mantine/core'
+import { theme } from './theme'
 
 type Props = {
   children: React.ReactNode
 }
 
-export function AppThemeProvider(props: Props) {
-  const darkModeSetting = useThemeStore(state => state.darkModeSetting)
-
-  const theme = useCreateMuiTheme(darkModeSetting)
-
+export function AppThemeProvider({ children }: Props) {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {props.children}
-    </ThemeProvider>
+    <MantineProvider theme={theme} defaultColorScheme="dark">
+      {children}
+    </MantineProvider>
   )
 }
+
+export default AppThemeProvider

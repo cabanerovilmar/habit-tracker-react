@@ -5,5 +5,5 @@ export function setDarkMode(mode: DarkModeSetting) {
 }
 
 export function getDarkMode() {
-  return (localStorage.getItem('darkMode') || 'system') as DarkModeSetting
+  return (localStorage.getItem('darkMode') || 'auto') as DarkModeSetting
 }

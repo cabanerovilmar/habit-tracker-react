@@ -21,7 +21,7 @@ export const useCreateMuiTheme = (darkModeSetting: DarkModeSetting) => {
   const systemPrefersDark = useSystemTheme()
 
   const theme = useMemo(() => {
-    const isDarkMode = darkModeSetting === 'on' || (darkModeSetting === 'system' && systemPrefersDark)
+    const isDarkMode = darkModeSetting === 'dark' || (darkModeSetting === 'auto' && systemPrefersDark)
 
     return createMuiTheme(isDarkMode)
   }, [darkModeSetting, systemPrefersDark])

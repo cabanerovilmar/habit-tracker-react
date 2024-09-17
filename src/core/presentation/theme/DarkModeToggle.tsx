@@ -11,13 +11,13 @@ const DarkModeToggle = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     switch (e.target.value) {
       case 'on':
-        setDarkMode('on')
+        setDarkMode('dark')
         break
       case 'off':
-        setDarkMode('off')
+        setDarkMode('light')
         break
       case 'system':
-        setDarkMode('system')
+        setDarkMode('auto')
         break
       default:
         break

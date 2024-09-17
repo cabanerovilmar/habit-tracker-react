@@ -5,7 +5,6 @@ import { Box, Typography } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import { getTextboxBackground, getTextboxText } from '@/core/presentation/theme/themeColors.ts'
 import { useUpdatePWAThemeColor } from '@/core/presentation/theme/useUpdatePWAThemeColor'
-import useThemeStore from '@/core/presentation/store'
 
 import data from './02-compound-interest.json'
 
@@ -18,21 +17,8 @@ export default function MarkdownEditor() {
 
   const theme = useTheme()
 
-  const { darkModeSetting, setDarkMode } = useThemeStore(state => ({
-    darkModeSetting: state.darkModeSetting,
-    setDarkMode: state.setDarkMode,
-  }))
-
   const handleClearInput = () => {
     setContent('')
-  }
-
-  const handleToggleDarkmode = () => {
-    if (darkModeSetting === 'on') {
-      setDarkMode('off')
-    } else {
-      setDarkMode('on')
-    }
   }
 
   useEffect(() => {
@@ -92,13 +78,7 @@ export default function MarkdownEditor() {
         },
       }}
     >
-      <Typography
-        variant="h5"
-        gutterBottom
-        color={textboxText}
-        onClick={handleToggleDarkmode}
-        sx={{ cursor: 'pointer' }}
-      >
+      <Typography variant="h5" gutterBottom color={textboxText} sx={{ cursor: 'pointer' }}>
         Markdown Editor
       </Typography>
       <textarea
