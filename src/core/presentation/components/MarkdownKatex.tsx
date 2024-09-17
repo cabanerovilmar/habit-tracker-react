@@ -1,9 +1,7 @@
-// TODO: Create unit test if it correctly renders normal text, with markdown, and with katex. Or any other edge cases.
-
 import { useEffect, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
 import renderMathInElement from 'katex/contrib/auto-render'
-import { Box } from '@mui/material'
+import { Box } from '@mantine/core'
 
 // Define the props interface for the MarkdownKatex component
 interface Props {
@@ -11,7 +9,7 @@ interface Props {
 }
 
 export function MarkdownKatex(props: Props) {
-  const mathContainerRef = useRef<HTMLDivElement | null>(null)
+  const mathContainerRef = useRef(null)
 
   useEffect(() => {
     // Render KaTeX math inside the parsed Markdown content
@@ -36,26 +34,7 @@ export function MarkdownKatex(props: Props) {
   return (
     <Box
       ref={mathContainerRef}
-      sx={{
-        padding: 0,
-        margin: 0,
-        fontSize: '16px',
-        tabSize: 4,
-        fontWeight: 'normal',
-        '& p': {
-          marginBottom: 0,
-          padding: 0,
-        },
-        '& li:first-of-type > p:first-of-type': {
-          marginTop: '-16px',
-        },
-        '& ol': {
-          paddingLeft: '16px',
-        },
-        '& ul': {
-          margin: 0,
-        },
-      }}
+      className="[&_p]:mb-0 [&_p]:p-0 [&_li:first-of-type>p:first-of-type]:mt-[-8px] [&_ol]:pl-[-16px] [&_ul]:mt-[-8px]"
     >
       <ReactMarkdown>{escapeBackslashes(props.content)}</ReactMarkdown>
     </Box>

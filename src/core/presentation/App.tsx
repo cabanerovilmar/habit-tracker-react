@@ -1,8 +1,11 @@
 import { Fragment } from 'react'
-import { Box, Button, Text, useMantineColorScheme, useMantineTheme } from '@mantine/core'
-import Card from './components/Card'
+import { Box, Text, useMantineColorScheme } from '@mantine/core'
+import { Card } from './components/Card'
+import { useUpdatePwaThemeColor } from './theme/useUpdatePwaThemeColor'
 
-function App() {
+export function App() {
+  useUpdatePwaThemeColor()
+
   return (
     <Fragment>
       <CenteredMessage />
@@ -10,13 +13,8 @@ function App() {
   )
 }
 
-export default App
-
 function CenteredMessage() {
   const { toggleColorScheme } = useMantineColorScheme()
-  const theme = useMantineTheme()
-
-  console.log(theme.primaryColor)
 
   return (
     <Box className="flex justify-center items-center h-screen text-center p-4">
@@ -24,7 +22,6 @@ function CenteredMessage() {
         <Text className="text-2xl md:text-4xl cursor-pointer p-2" onClick={() => toggleColorScheme()}>
           This website is under development.
         </Text>
-        <Button className="w-60 self-center">Primary Button</Button>
       </Card>
     </Box>
   )

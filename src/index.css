@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-hr {
-  border: none;
-  height: 1px;
-  background-color: gray;
-  opacity: 0.5;
-}
-
 [data-mantine-color-scheme='light'] body {
   color: #0d0d0d;
   background: #ffffff;
@@ -17,4 +10,11 @@ hr {
 [data-mantine-color-scheme='dark'] body {
   color: #ececec;
   background: #212121;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: gray;
+  opacity: 0.5;
 }

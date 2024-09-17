@@ -1,27 +1,29 @@
+// This should not be used anymore as Mantine will handle theme state
+// This will serve as a guide for the future usage
+
 import { create } from 'zustand'
 import { logger } from './logger'
-import * as themeManager from '@/core/domain/theme-manager'
-import { DarkModeSetting } from '@/core/utils/type'
+
+type ColorScheme = 'dark' | 'light' | 'auto'
 
 type State = {
-  darkModeSetting: DarkModeSetting
+  colorScheme: ColorScheme
 }
 
 type Actions = {
-  setDarkMode: (mode: DarkModeSetting) => void
+  setColorScheme: (colorScheme: ColorScheme) => void
 }
 
 const initialState: State = {
-  darkModeSetting: themeManager.getDarkMode(),
+  colorScheme: 'dark',
 }
 
 const useThemeStore = create<State & Actions>()(
   logger<State & Actions>(
     set => ({
       ...initialState,
-      setDarkMode: darkModeSetting => {
-        set({ darkModeSetting })
-        themeManager.setDarkMode(darkModeSetting)
+      setColorScheme: colorScheme => {
+        set({ colorScheme })
       },
     }),
     'themeStore',

@@ -4,7 +4,7 @@ import { Card as MantineCard, CardProps as MantineCardProps, useMantineColorSche
 interface Props extends MantineCardProps {}
 
 // Custom Card component that extends Mantine Card
-export default function Card({ children, ...rest }: Props) {
+export function Card({ children, ...rest }: Props) {
   const { colorScheme } = useMantineColorScheme()
 
   return (
