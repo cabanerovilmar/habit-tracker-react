@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
 import renderMathInElement from 'katex/contrib/auto-render'
 import { Box } from '@mantine/core'
@@ -8,7 +8,7 @@ interface Props {
   content: string // The content string containing Markdown and KaTeX math syntax
 }
 
-export function MarkdownKatex(props: Props) {
+export const MarkdownKatex: React.FC<Props> = ({ content }) => {
   const mathContainerRef = useRef(null)
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export function MarkdownKatex(props: Props) {
         throwOnError: false,
       })
     }
-  }, [props.content]) // Re-render math when content changes
+  }, [])
 
   // Function to escape LaTeX backslashes
   const escapeBackslashes = (text: string) => {
@@ -36,7 +36,7 @@ export function MarkdownKatex(props: Props) {
       ref={mathContainerRef}
       className="[&_p]:mb-0 [&_p]:p-0 [&_li:first-of-type>p:first-of-type]:mt-[-8px] [&_ol]:pl-[-16px] [&_ul]:mt-[-8px]"
     >
-      <ReactMarkdown>{escapeBackslashes(props.content)}</ReactMarkdown>
+      <ReactMarkdown>{escapeBackslashes(content)}</ReactMarkdown>
     </Box>
   )
 }

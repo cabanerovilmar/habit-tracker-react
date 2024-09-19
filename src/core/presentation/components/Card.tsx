@@ -1,10 +1,11 @@
 import { Card as MantineCard, CardProps as MantineCardProps, useMantineColorScheme } from '@mantine/core'
 
 // Define props type by extending Mantine's Card props
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface Props extends MantineCardProps {}
 
 // Custom Card component that extends Mantine Card
-export function Card({ children, ...rest }: Props) {
+export const Card: React.FC<Props> = ({ children, ...rest }) => {
   const { colorScheme } = useMantineColorScheme()
 
   return (

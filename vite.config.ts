@@ -1,3 +1,5 @@
+/// <reference types="vitest/config" />
+
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import tsconfigPaths from 'vite-tsconfig-paths'
@@ -71,6 +73,26 @@ export default defineConfig({
           // Add more libraries as needed
         },
       },
+    },
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './vitest.setup.ts',
+    coverage: {
+      provider: 'v8',
+      include: ['src/**/*.ts', 'src/**/*.tsx'], // Include only files from src
+      reporter: ['text', 'json', 'html'], // Use desired reporters
+      reportsDirectory: './coverage', // Output folder for coverage
+      exclude: [
+        'src/main.tsx',
+        'src/vite-env.d.ts',
+        'src/core/presentation/store/logger.ts',
+        'src/**/*.spec.ts',
+        'src/**/*.spec.tsx',
+        'src/**/*.test.ts',
+        'src/**/*.test.tsx',
+      ],
     },
   },
 })
