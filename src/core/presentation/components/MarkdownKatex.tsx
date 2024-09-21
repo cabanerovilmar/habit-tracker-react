@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
 import renderMathInElement from 'katex/contrib/auto-render'
 import { Box } from '@mantine/core'
@@ -8,7 +8,8 @@ interface Props {
   content: string // The content string containing Markdown and KaTeX math syntax
 }
 
-export const MarkdownKatex: React.FC<Props> = ({ content }) => {
+export function MarkdownKatex(props: Props) {
+  const { content } = props
   const mathContainerRef = useRef(null)
 
   useEffect(() => {

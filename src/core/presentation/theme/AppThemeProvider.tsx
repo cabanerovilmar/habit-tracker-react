@@ -1,5 +1,4 @@
 import '@mantine/core/styles.css'
-import React from 'react'
 import { MantineProvider } from '@mantine/core'
 import { theme } from './theme'
 import { useSystemTheme } from '@/core/hooks/useSystemTheme'
@@ -27,7 +26,8 @@ type Props = {
  *   )
  * }
  */
-export const AppThemeProvider: React.FC<Props> = ({ children }) => {
+export function AppThemeProvider(props: Props) {
+  const { children } = props
   const systemColorScheme = useSystemTheme()
 
   return (

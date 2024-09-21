@@ -5,7 +5,8 @@ import { Card as MantineCard, CardProps as MantineCardProps, useMantineColorSche
 interface Props extends MantineCardProps {}
 
 // Custom Card component that extends Mantine Card
-export const Card: React.FC<Props> = ({ children, ...rest }) => {
+export function Card(props: Props) {
+  const { children, ...rest } = props
   const { colorScheme } = useMantineColorScheme()
 
   return (
