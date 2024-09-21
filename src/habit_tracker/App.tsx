@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react'
 import { Box, Text, useMantineColorScheme } from '@mantine/core'
-import { useUpdatePwaThemeColor } from './theme/useUpdatePwaThemeColor'
+import { useUpdatePwaThemeColor } from '@/core/presentation/theme/useUpdatePwaThemeColor'
 
-export const App: React.FC = () => {
+export default function App() {
   useUpdatePwaThemeColor()
 
   return (

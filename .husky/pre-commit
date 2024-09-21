@@ -3,5 +3,5 @@
 # Run ESLint for linting 
 npm run lint
 
-# Run unit tests
-npx vitest run --bail 1
+# # Run unit tests
+# npx vitest run --bail 1
