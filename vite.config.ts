@@ -70,6 +70,8 @@ export default defineConfig({
           reactMarkdown: ['react-markdown'],
           zustand: ['zustand'],
           mantine: ['@mantine/core', '@mantine/hooks'],
+          reactRouterDom: ['react-router-dom'],
+          iconify: ['@iconify/react'],
           // Add more libraries as needed
         },
       },
