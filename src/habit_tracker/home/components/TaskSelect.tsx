@@ -13,6 +13,7 @@ export function TaskSelect({ viewModel }: Props): JSX.Element {
       onChange={viewModel.handleTaskSelection}
       placeholder="Pick a task"
       className="w-full"
+      searchable
       autoFocus // Automatically focus the Select when it is shown
       dropdownOpened // Ensure the dropdown is opened when the Select is rendered
     />
