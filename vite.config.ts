@@ -72,6 +72,8 @@ export default defineConfig({
           mantine: ['@mantine/core', '@mantine/hooks'],
           reactRouterDom: ['react-router-dom'],
           iconify: ['@iconify/react'],
+          dateFns: ['date-fns'],
+          useHooksTs: ['usehooks-ts'],
           // Add more libraries as needed
         },
       },

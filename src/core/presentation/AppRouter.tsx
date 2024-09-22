@@ -1,11 +1,14 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
+import { useUpdatePwaThemeColor } from './theme/useUpdatePwaThemeColor'
 
 const Home = lazy(() => import('@/habit_tracker/home/Home'))
 const Settings = lazy(() => import('@/habit_tracker/Settings'))
 const AppPage = lazy(() => import('@/habit_tracker/App'))
 
-export default function AppRouter() {
+export default function AppRouter(): JSX.Element {
+  useUpdatePwaThemeColor()
+
   return (
     <Router>
       <Suspense fallback={null}>

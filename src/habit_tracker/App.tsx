@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import { Box, Text, useMantineColorScheme } from '@mantine/core'
 import { useUpdatePwaThemeColor } from '@/core/presentation/theme/useUpdatePwaThemeColor'
 
-export default function App() {
+export default function App(): JSX.Element {
   useUpdatePwaThemeColor()
 
   return (
@@ -12,7 +12,7 @@ export default function App() {
   )
 }
 
-export const CenteredMessage: React.FC = () => {
+export function CenteredMessage(): JSX.Element {
   const { toggleColorScheme } = useMantineColorScheme()
 
   return (

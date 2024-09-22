@@ -1,0 +1,21 @@
+[
+  {
+    "taskName": "Sleep",
+    "timeRanges": {
+      "weekDays": [{ "start": "23:00", "end": "08:30" }],
+      "weekends": [{ "start": "23:00", "end": "09:30" }]
+    }
+  },
+  {
+    "taskName": "Miscellaneous",
+    "timeRanges": {}
+  },
+  {
+    "taskName": "Unplanned Task",
+    "timeRanges": {}
+  },
+  {
+    "taskName": "Diary",
+    "timeRanges": {}
+  }
+]

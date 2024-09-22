@@ -8,7 +8,7 @@ interface Props {
   content: string // The content string containing Markdown and KaTeX math syntax
 }
 
-export function MarkdownKatex(props: Props) {
+export function MarkdownKatex(props: Props): JSX.Element {
   const { content } = props
   const mathContainerRef = useRef(null)
 

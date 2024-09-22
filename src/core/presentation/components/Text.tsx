@@ -5,7 +5,7 @@ interface Props {
   className?: string
 }
 
-export function Text(props: Props) {
+export function Text(props: Props): JSX.Element {
   const { children, className = '', ...rest } = props
   return (
     <MantineText className={`text-base ${className}`} {...rest}>
