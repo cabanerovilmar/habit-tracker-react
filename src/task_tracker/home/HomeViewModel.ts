@@ -197,6 +197,7 @@ export function HomeViewModel(): IHomeViewModel {
     setCapturedTask(selectedTask) // Use the selected task
     setStartTime(now) // Set the new start time to the actual current date and time
     saveTaskToLocalStorage(selectedTask, now, taskChange) // Save to localStorage
+    setShowTaskPicker(false)
   }
 
   return {
