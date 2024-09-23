@@ -17,13 +17,12 @@ import tasks from '../data/tasks.json'
 export const useCurrentTask = (isTaskOngoing: boolean, taskChange: boolean): string => {
   const [currentTask, setCurrentTask] = useState(getCurrentTask(tasks))
 
-  // Only update currentTask if the task is not ongoing
   useEffect(() => {
     if (!isTaskOngoing) {
       const intervalId = setInterval(() => {
         const newTask = getCurrentTask(tasks)
         setCurrentTask(newTask)
-      }, 1000) // Update the current task every second when the task is not ongoing
+      }, 1000)
 
       return () => clearInterval(intervalId)
     }

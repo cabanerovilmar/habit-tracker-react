@@ -76,5 +76,3 @@ export const getCurrentTask = (tasks: Task[]): string => {
 
   return 'Select Task'
 }
-// BUG:
-// Sleep schedule doesn't work. That is, if it starts before midnight and spans to after midnight.
