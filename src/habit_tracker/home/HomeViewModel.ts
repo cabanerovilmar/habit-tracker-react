@@ -184,7 +184,7 @@ export function HomeViewModel(): IHomeViewModel {
       setCapturedTask('') // Clear captured task
       setStartTime(null) // Reset the start time
       setTaskChange(!taskChange) // Trigger a re-render
-      setTaskTimer(null) // Reset timer to null after ending the task
+      setTaskTimer('00:00:00') // Reset timer after ending the task
     }
   }
 
