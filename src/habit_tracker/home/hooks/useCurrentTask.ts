@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { getCurrentTask } from './getCurrentTask'
-import tasks from './tasks.json'
+import { getCurrentTask } from '../domain/getCurrentTask'
+import tasks from '../data/tasks.json'
 
 /**
  * Returns the current task based on the time of day and day of week.

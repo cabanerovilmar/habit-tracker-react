@@ -1,6 +1,6 @@
 // tasksStorage.ts
 
-import { TaskPayload } from './HomeViewModel'
+import { TaskPayload } from '../HomeViewModel'
 
 // Key for localStorage
 const TASKS_STORAGE_KEY = 'completedTasks'

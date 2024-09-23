@@ -1,5 +1,5 @@
 import { describe, it, expect, afterEach } from 'vitest'
-import { getCurrentTask, isTimeInRange, parseTime } from '../getCurrentTask'
+import { getCurrentTask, isTimeInRange, parseTime } from '../domain/getCurrentTask'
 import tasks from './utils/mockTasks.json'
 
 const mockDate = (dateString: string): void => {

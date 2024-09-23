@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { format, differenceInSeconds, addSeconds } from 'date-fns'
-import tasks from './tasks.json' // Import tasks from JSON
-import { useCurrentTask } from './useCurrentTask' // Assuming you have useCurrentTask logic
-import { saveTasksToLocalStorage } from './tasksStorage'
+import tasks from './data/tasks.json' // Import tasks from JSON
+import { useCurrentTask } from './hooks/useCurrentTask' // Assuming you have useCurrentTask logic
+import { saveTasksToLocalStorage } from './data/tasksStorage'
 
 export interface TaskPayload {
   taskName: string
