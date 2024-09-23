@@ -1,1 +1,0 @@
-- If task is ongoing, disable the select feature, make the cursor as normal arrow and hide the arrow down icon.

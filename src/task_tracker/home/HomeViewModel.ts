@@ -29,6 +29,11 @@ export interface IHomeViewModel {
   currentTime: string
   startTime: string
   taskTimer: string | null
+  showTimeInput: boolean
+  toggleTimeInput: () => void
+  handleTimeChange: (newTime: string) => void
+  timeInputValue: string
+  setTimeInputValue: (value: string) => void
 }
 
 export function HomeViewModel(): IHomeViewModel {
@@ -38,9 +43,11 @@ export function HomeViewModel(): IHomeViewModel {
   const [currentDate, setCurrentDate] = useState<string>('')
   const [currentTime, setCurrentTime] = useState<string>('')
   const [startTime, setStartTime] = useState<Date | null>(null)
-  const [taskTimer, setTaskTimer] = useState<string | null>(null)
+  const [taskTimer, setTaskTimer] = useState<string | null>('00:00:00')
   const [showTaskPicker, setShowTaskPicker] = useState(false)
   const [selectedTask, setSelectedTask] = useState<string>(useCurrentTask(false, taskChange))
+  const [showTimeInput, setShowTimeInput] = useState(false)
+  const [timeInputValue, setTimeInputValue] = useState('')
   const taskIntervalRef = useRef<NodeJS.Timeout | null>(null)
 
   const taskNames = tasks.map(task => ({ value: task.taskName, label: task.taskName }))
@@ -97,7 +104,7 @@ export function HomeViewModel(): IHomeViewModel {
     const updateDateTime = () => {
       const now = new Date()
       setCurrentDate(format(now, 'EEEE, MMM d'))
-      setCurrentTime(format(now, 'HH:mm'))
+      setCurrentTime(format(now, 'hh:mm a'))
     }
 
     updateDateTime()
@@ -106,24 +113,31 @@ export function HomeViewModel(): IHomeViewModel {
     return () => clearInterval(intervalId)
   }, [])
 
+  const updateTaskTimer = (start: Date) => {
+    const now = new Date()
+    const secondsElapsed = differenceInSeconds(now, start)
+
+    // Ensure we always have a positive number of seconds
+    const positiveSeconds = Math.max(0, secondsElapsed)
+
+    const hours = Math.floor(positiveSeconds / 3600)
+    const minutes = Math.floor((positiveSeconds % 3600) / 60)
+    const seconds = positiveSeconds % 60
+
+    setTaskTimer(
+      `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`,
+    )
+  }
+
   useEffect(() => {
     if (isTaskOngoing && startTime) {
-      taskIntervalRef.current = setInterval(() => {
-        const now = new Date()
-        const secondsElapsed = differenceInSeconds(now, startTime)
-
-        const hours = Math.floor(secondsElapsed / 3600)
-        const minutes = Math.floor((secondsElapsed % 3600) / 60)
-        const seconds = secondsElapsed % 60
-
-        setTaskTimer(
-          `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`,
-        )
-      }, 1000)
+      updateTaskTimer(startTime)
+      taskIntervalRef.current = setInterval(() => updateTaskTimer(startTime), 1000)
     } else {
       if (taskIntervalRef.current) {
         clearInterval(taskIntervalRef.current)
       }
+      setTaskTimer('00:00:00')
     }
 
     return () => {
@@ -167,14 +181,38 @@ export function HomeViewModel(): IHomeViewModel {
   }
 
   const handleStartTask = () => {
-    const now = new Date()
+    const taskStartTime = startTime || new Date()
     setIsTaskOngoing(true)
     setCapturedTask(selectedTask)
-    setStartTime(now)
-    saveTaskToLocalStorage(selectedTask, now, taskChange)
+    setStartTime(taskStartTime)
+    saveTaskToLocalStorage(selectedTask, taskStartTime, taskChange)
     setShowTaskPicker(false)
+    // Start the timer immediately
+    updateTaskTimer(taskStartTime)
   }
 
+  const toggleTimeInput = () => {
+    setShowTimeInput(prev => !prev)
+    setTimeInputValue(startTime ? format(startTime, 'HH:mm') : format(new Date(), 'HH:mm'))
+  }
+
+  const handleTimeChange = (newTime: string) => {
+    const [hours, minutes] = newTime.split(':')
+    const newDate = new Date()
+    newDate.setHours(parseInt(hours, 10))
+    newDate.setMinutes(parseInt(minutes, 10))
+    newDate.setSeconds(0)
+    setStartTime(newDate)
+    setShowTimeInput(false)
+
+    if (isTaskOngoing) {
+      // If a task is ongoing, update the timer immediately
+      updateTaskTimer(newDate)
+    } else {
+      // If no task is ongoing, just reset the timer
+      setTaskTimer('00:00:00')
+    }
+  }
   return {
     isTaskOngoing,
     handleEndTask,
@@ -185,8 +223,13 @@ export function HomeViewModel(): IHomeViewModel {
     handleTaskSelection,
     toggleTaskPicker,
     currentDate,
-    currentTime,
-    startTime: startTime ? format(startTime, 'HH:mm') : '',
+    currentTime: startTime ? format(startTime, 'hh:mm a') : currentTime,
+    startTime: startTime ? format(startTime, 'hh:mm a') : '',
     taskTimer,
+    showTimeInput,
+    toggleTimeInput,
+    handleTimeChange,
+    timeInputValue,
+    setTimeInputValue,
   }
 }

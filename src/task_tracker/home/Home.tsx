@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react'
 import { Box, Button, Text } from '@mantine/core'
+import { TimeInput } from '@mantine/dates'
 import { HomeViewModel } from './HomeViewModel'
 import { TaskSelect } from './components/TaskSelect'
 import { Card } from '@/core/presentation/components/Card'
@@ -35,8 +36,21 @@ export default function Home(): JSX.Element {
           {viewModel.showTaskPicker && <TaskSelect viewModel={viewModel} />}
         </Box>
 
-        <Box className="flex justify-between items-center p-4 pb-0">
-          <Text className="w-[58.69px]">{viewModel.isTaskOngoing ? viewModel.startTime : viewModel.currentTime}</Text>
+        <Box className="flex justify-between items-center p-4 pb-0 z-10">
+          {viewModel.showTimeInput ? (
+            <TimeInput
+              variant="unstyled"
+              value={viewModel.timeInputValue}
+              onChange={e => viewModel.setTimeInputValue(e.currentTarget.value)}
+              onBlur={() => viewModel.handleTimeChange(viewModel.timeInputValue)}
+              className="w-[95px]"
+              autoFocus
+            />
+          ) : (
+            <Text className="w-[95px] cursor-pointer" onClick={viewModel.toggleTimeInput}>
+              {viewModel.isTaskOngoing ? viewModel.startTime : viewModel.currentTime}
+            </Text>
+          )}
 
           {viewModel.isTaskOngoing ? (
             <Button onClick={viewModel.handleEndTask} color="red" className="w-20">
@@ -48,7 +62,9 @@ export default function Home(): JSX.Element {
             </Button>
           )}
 
-          <Text className="w-[58.69px]">{viewModel.taskTimer}</Text>
+          <Box className="w-[95px] flex justify-end">
+            <Text>{viewModel.taskTimer}</Text>
+          </Box>
         </Box>
       </Card>
     </Box>

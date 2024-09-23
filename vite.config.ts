@@ -69,7 +69,9 @@ export default defineConfig({
           react: ['react', 'react-dom'], // Example splitting React into its own chunk
           reactMarkdown: ['react-markdown'],
           zustand: ['zustand'],
-          mantine: ['@mantine/core', '@mantine/hooks'],
+          mantineCore: ['@mantine/core'],
+          mantineHooks: ['@mantine/hooks'],
+          mantineDates: ['@mantine/dates'],
           reactRouterDom: ['react-router-dom'],
           iconify: ['@iconify/react'],
           dateFns: ['date-fns'],

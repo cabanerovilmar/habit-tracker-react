@@ -19,6 +19,7 @@
   "dependencies": {
     "@iconify/react": "^5.0.2",
     "@mantine/core": "^7.12.2",
+    "@mantine/dates": "^7.12.2",
     "@mantine/hooks": "^7.12.2",
     "date-fns": "^4.1.0",
     "katex": "^0.16.11",
