@@ -49,12 +49,13 @@ export function HomeViewModel(): IHomeViewModel {
   const taskNames = tasks.map(task => ({ value: task.taskName, label: task.taskName }))
 
   // Save ongoing task data to localStorage
-  const saveTaskToLocalStorage = (taskName: string, startTime: Date) => {
+  const saveTaskToLocalStorage = (taskName: string, startTime: Date, taskChange: boolean) => {
     localStorage.setItem(
       'ongoingTask',
       JSON.stringify({
         taskName,
         startTime: startTime.toISOString(),
+        taskChange,
       }),
     )
   }
@@ -63,10 +64,11 @@ export function HomeViewModel(): IHomeViewModel {
   const restoreTaskFromLocalStorage = () => {
     const savedTask = localStorage.getItem('ongoingTask')
     if (savedTask) {
-      const { taskName, startTime } = JSON.parse(savedTask)
+      const { taskName, startTime, taskChange } = JSON.parse(savedTask)
       const restoredStartTime = new Date(startTime)
       setCapturedTask(taskName)
       setSelectedTask(taskName)
+      setTaskChange(taskChange)
       setStartTime(restoredStartTime)
       setIsTaskOngoing(true)
 
@@ -194,7 +196,7 @@ export function HomeViewModel(): IHomeViewModel {
     setIsTaskOngoing(true)
     setCapturedTask(selectedTask) // Use the selected task
     setStartTime(now) // Set the new start time to the actual current date and time
-    saveTaskToLocalStorage(selectedTask, now) // Save to localStorage
+    saveTaskToLocalStorage(selectedTask, now, taskChange) // Save to localStorage
   }
 
   return {
