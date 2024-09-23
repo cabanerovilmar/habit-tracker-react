@@ -3,6 +3,7 @@ import { format, differenceInSeconds, addSeconds } from 'date-fns'
 import tasks from './data/tasks.json'
 import { useCurrentTask } from './hooks/useCurrentTask'
 import { saveTasksToLocalStorage } from './data/tasksStorage'
+import { getCurrentTask } from './domain/getCurrentTask'
 
 export interface TaskPayload {
   taskName: string
@@ -38,27 +39,26 @@ export interface IHomeViewModel {
 
 export function HomeViewModel(): IHomeViewModel {
   const [isTaskOngoing, setIsTaskOngoing] = useState<boolean>(false)
-  const [taskChange, setTaskChange] = useState(false)
   const [capturedTask, setCapturedTask] = useState<string>('')
   const [currentDate, setCurrentDate] = useState<string>('')
   const [currentTime, setCurrentTime] = useState<string>('')
   const [startTime, setStartTime] = useState<Date | null>(null)
   const [taskTimer, setTaskTimer] = useState<string | null>('00:00:00')
   const [showTaskPicker, setShowTaskPicker] = useState(false)
-  const [selectedTask, setSelectedTask] = useState<string>(useCurrentTask(false, taskChange))
+  const [selectedTask, setSelectedTask] = useState<string>(useCurrentTask(false))
   const [showTimeInput, setShowTimeInput] = useState(false)
   const [timeInputValue, setTimeInputValue] = useState('')
   const taskIntervalRef = useRef<NodeJS.Timeout | null>(null)
+  const currentTask = getCurrentTask(tasks)
 
   const taskNames = tasks.map(task => ({ value: task.taskName, label: task.taskName }))
 
-  const saveTaskToLocalStorage = (taskName: string, startTime: Date, taskChange: boolean) => {
+  const saveTaskToLocalStorage = (taskName: string, startTime: Date) => {
     localStorage.setItem(
       'ongoingTask',
       JSON.stringify({
         taskName,
         startTime: startTime.toISOString(),
-        taskChange,
       }),
     )
   }
@@ -66,11 +66,10 @@ export function HomeViewModel(): IHomeViewModel {
   const restoreTaskFromLocalStorage = () => {
     const savedTask = localStorage.getItem('ongoingTask')
     if (savedTask) {
-      const { taskName, startTime, taskChange } = JSON.parse(savedTask)
+      const { taskName, startTime } = JSON.parse(savedTask)
       const restoredStartTime = new Date(startTime)
       setCapturedTask(taskName)
       setSelectedTask(taskName)
-      setTaskChange(taskChange)
       setStartTime(restoredStartTime)
       setIsTaskOngoing(true)
 
@@ -175,7 +174,7 @@ export function HomeViewModel(): IHomeViewModel {
       clearTaskFromLocalStorage()
       setCapturedTask('')
       setStartTime(null)
-      setTaskChange(!taskChange)
+      setSelectedTask(currentTask)
       setTaskTimer('00:00:00')
     }
   }
@@ -185,7 +184,7 @@ export function HomeViewModel(): IHomeViewModel {
     setIsTaskOngoing(true)
     setCapturedTask(selectedTask)
     setStartTime(taskStartTime)
-    saveTaskToLocalStorage(selectedTask, taskStartTime, taskChange)
+    saveTaskToLocalStorage(selectedTask, taskStartTime)
     setShowTaskPicker(false)
     // Start the timer immediately
     updateTaskTimer(taskStartTime)

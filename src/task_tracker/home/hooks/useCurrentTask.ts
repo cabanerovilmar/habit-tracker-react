@@ -11,10 +11,9 @@ import tasks from '../data/tasks.json'
  * update the current task immediately.
  *
  * @param {boolean} isTaskOngoing Whether a task is currently ongoing.
- * @param {boolean} taskChange Whether a task change has occurred.
  * @returns {string} The current task.
  */
-export const useCurrentTask = (isTaskOngoing: boolean, taskChange: boolean): string => {
+export const useCurrentTask = (isTaskOngoing: boolean): string => {
   const [currentTask, setCurrentTask] = useState(getCurrentTask(tasks))
 
   useEffect(() => {
@@ -27,13 +26,6 @@ export const useCurrentTask = (isTaskOngoing: boolean, taskChange: boolean): str
       return () => clearInterval(intervalId)
     }
   }, [isTaskOngoing])
-
-  useEffect(() => {
-    if (taskChange) {
-      const newTask = getCurrentTask(tasks)
-      setCurrentTask(newTask)
-    }
-  }, [taskChange])
 
   return currentTask
 }
