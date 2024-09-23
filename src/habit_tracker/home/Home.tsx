@@ -15,13 +15,17 @@ export default function Home(): JSX.Element {
           <Box>{viewModel.currentDate}</Box>
         </Box>
 
-        <Box className="flex justify-center items-center text-center p-4 h-[100vh] sm:h-[70vh]">
+        <Box className="flex justify-center items-center text-center h-[100vh] sm:h-[70vh]">
           <Box
-            className={`flex w-full justify-between items-center cursor-pointer ${viewModel.showTaskPicker ? 'hidden' : 'block'}`}
-            onClick={viewModel.toggleTaskPicker}
+            className={`flex w-full justify-between items-center ${viewModel.isTaskOngoing ? 'cursor-default' : 'cursor-pointer'} ${viewModel.showTaskPicker ? 'hidden' : 'block'}`}
+            onClick={!viewModel.isTaskOngoing ? viewModel.toggleTaskPicker : undefined}
           >
-            <Text className="flex-grow text-center">{viewModel.selectedTask}</Text>
-            <Icon icon="iconamoon:arrow-down-2-duotone" className="text-xl" />
+            <Text className="flex-grow text-center ">{viewModel.selectedTask}</Text>
+            <Icon
+              icon="iconamoon:arrow-down-2-duotone"
+              className={`text-xl w-5 ${viewModel.isTaskOngoing ? 'hidden' : 'block'}`}
+            />
+            <Box className={`w-5 ${!viewModel.isTaskOngoing ? 'hidden' : 'block'}`} />
           </Box>
 
           {viewModel.showTaskPicker && <TaskSelect viewModel={viewModel} />}
