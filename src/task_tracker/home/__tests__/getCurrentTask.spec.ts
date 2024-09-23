@@ -16,6 +16,71 @@ const mockDate = (dateString: string): void => {
   } as typeof Date
 }
 
+describe('parseTime', () => {
+  it('parses valid time formats correctly', () => {
+    expect(parseTime('08:30')).toBe(510)
+    expect(parseTime('12:00')).toBe(720)
+    expect(parseTime('23:59')).toBe(1439)
+  })
+
+  /* Not yet implemented 
+  it('throws an error for invalid time formats', () => {
+    expect(() => parseTime('8:30')).toThrowError()
+    expect(() => parseTime('08:3')).toThrowError()
+    expect(() => parseTime('abc')).toThrowError()
+  }) */
+
+  it('handles edge cases correctly', () => {
+    expect(parseTime('00:00')).toBe(0)
+    expect(parseTime('23:59')).toBe(1439)
+  })
+})
+
+describe('isTimeInRange', () => {
+  it('should return true when time is within range', () => {
+    const currentTime = 10 * 60 + 30 // 10:30
+    const start = '10:00'
+    const end = '11:00'
+    expect(isTimeInRange(currentTime, start, end)).toBe(true)
+  })
+
+  it('should return false when time is outside range', () => {
+    const currentTime = 12 * 60 + 30 // 12:30
+    const start = '10:00'
+    const end = '11:00'
+    expect(isTimeInRange(currentTime, start, end)).toBe(false)
+  })
+
+  it('should return true when time is at start of range', () => {
+    const currentTime = 10 * 60 // 10:00
+    const start = '10:00'
+    const end = '11:00'
+    expect(isTimeInRange(currentTime, start, end)).toBe(true)
+  })
+
+  it('should return false when time is at end of range', () => {
+    const currentTime = 11 * 60 // 11:00
+    const start = '10:00'
+    const end = '11:00'
+    expect(isTimeInRange(currentTime, start, end)).toBe(false)
+  })
+
+  it('should return true when time spans past midnight', () => {
+    const currentTime = 23 * 60 + 30 // 23:30
+    const start = '22:00'
+    const end = '01:00'
+    expect(isTimeInRange(currentTime, start, end)).toBe(true)
+  })
+
+  /* Not yet implemented 
+  it('should throw error when input is invalid', () => {
+    const currentTime = 10 * 60 + 30 // 10:30
+    const start = 'abc'
+    const end = '11:00'
+    expect(() => isTimeInRange(currentTime, start, end)).toThrowError()
+  }) */
+})
+
 describe('getCurrentTask', () => {
   afterEach(() => {
     global.Date = Date
@@ -103,69 +168,14 @@ describe('getCurrentTask', () => {
       expect(getCurrentTask(tasks)).toBe('Sleep')
     })
   })
-})
 
-describe('parseTime', () => {
-  it('parses valid time formats correctly', () => {
-    expect(parseTime('08:30')).toBe(510)
-    expect(parseTime('12:00')).toBe(720)
-    expect(parseTime('23:59')).toBe(1439)
+  it('returns "Select Task" if tasks is empty', () => {
+    mockDate('2024-09-22T23:40:00') // Sunday
+    expect(getCurrentTask([])).toBe('Select Task')
   })
 
-  /* Not yet implemented 
-  it('throws an error for invalid time formats', () => {
-    expect(() => parseTime('8:30')).toThrowError()
-    expect(() => parseTime('08:3')).toThrowError()
-    expect(() => parseTime('abc')).toThrowError()
-  }) */
-
-  it('handles edge cases correctly', () => {
-    expect(parseTime('00:00')).toBe(0)
-    expect(parseTime('23:59')).toBe(1439)
+  it('returns "Select Task" if current time does not fall within a task schedule', () => {
+    mockDate('2024-09-22T21:55:00') // Sunday
+    expect(getCurrentTask([])).toBe('Select Task')
   })
-})
-
-describe('isTimeInRange', () => {
-  it('should return true when time is within range', () => {
-    const currentTime = 10 * 60 + 30 // 10:30
-    const start = '10:00'
-    const end = '11:00'
-    expect(isTimeInRange(currentTime, start, end)).toBe(true)
-  })
-
-  it('should return false when time is outside range', () => {
-    const currentTime = 12 * 60 + 30 // 12:30
-    const start = '10:00'
-    const end = '11:00'
-    expect(isTimeInRange(currentTime, start, end)).toBe(false)
-  })
-
-  it('should return true when time is at start of range', () => {
-    const currentTime = 10 * 60 // 10:00
-    const start = '10:00'
-    const end = '11:00'
-    expect(isTimeInRange(currentTime, start, end)).toBe(true)
-  })
-
-  it('should return false when time is at end of range', () => {
-    const currentTime = 11 * 60 // 11:00
-    const start = '10:00'
-    const end = '11:00'
-    expect(isTimeInRange(currentTime, start, end)).toBe(false)
-  })
-
-  it('should return true when time spans past midnight', () => {
-    const currentTime = 23 * 60 + 30 // 23:30
-    const start = '22:00'
-    const end = '01:00'
-    expect(isTimeInRange(currentTime, start, end)).toBe(true)
-  })
-
-  /* Not yet implemented 
-  it('should throw error when input is invalid', () => {
-    const currentTime = 10 * 60 + 30 // 10:30
-    const start = 'abc'
-    const end = '11:00'
-    expect(() => isTimeInRange(currentTime, start, end)).toThrowError()
-  }) */
 })
