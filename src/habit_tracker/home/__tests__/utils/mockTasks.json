@@ -1,0 +1,90 @@
+[
+  {
+    "taskName": "Sleep",
+    "timeRanges": {
+      "weekDays": [{ "start": "23:00", "end": "08:30" }],
+      "weekends": [{ "start": "23:00", "end": "09:30" }]
+    }
+  },
+  {
+    "taskName": "Morning Preparation - Breakfast",
+    "timeRanges": {
+      "weekDays": [{ "start": "08:30", "end": "09:00" }],
+      "weekends": [{ "start": "09:30", "end": "10:00" }]
+    }
+  },
+  {
+    "taskName": "Work",
+    "timeRanges": {
+      "weekDays": [
+        { "start": "10:00", "end": "12:00" },
+        { "start": "13:00", "end": "15:00" },
+        { "start": "21:00", "end": "23:00" }
+      ]
+    }
+  },
+  {
+    "taskName": "Break - Lunch",
+    "timeRanges": {
+      "allWeek": [{ "start": "12:00", "end": "12:30" }]
+    }
+  },
+  {
+    "taskName": "Self-care - Take a Bath & Grooming",
+    "timeRanges": {
+      "allWeek": [{ "start": "12:30", "end": "13:00" }]
+    }
+  },
+  {
+    "taskName": "Break - Dinner",
+    "timeRanges": {
+      "allWeek": [{ "start": "19:00", "end": "20:00" }]
+    }
+  },
+  {
+    "taskName": "Rest",
+    "timeRanges": {
+      "allWeek": [{ "start": "20:00", "end": "21:00" }]
+    }
+  },
+  {
+    "taskName": "Personal Development - JavaScript Book",
+    "timeRanges": {
+      "weekends": [{ "start": "10:00", "end": "12:00" }]
+    }
+  },
+  {
+    "taskName": "Personal Development - Codewars",
+    "timeRanges": {
+      "weekDays": [{ "start": "09:00", "end": "10:00" }]
+    }
+  },
+  {
+    "taskName": "Personal Development - React",
+    "timeRanges": {
+      "weekends": [{ "start": "13:00", "end": "19:00" }]
+    }
+  },
+  {
+    "taskName": "Entalpiya - Code",
+    "timeRanges": {}
+  },
+  {
+    "taskName": "Personal Development - English Pronunciation",
+    "timeRanges": {
+      "weekends": [{ "start": "22:30", "end": "23:00" }]
+    }
+  },
+  {
+    "taskName": "Personal Development - English Vocabulary",
+    "timeRanges": {
+      "weekends": [{ "start": "22:00", "end": "22:30" }]
+    }
+  },
+  {
+    "taskName": "Personal Development - English Grammar",
+    "timeRanges": {
+      "weekends": [{ "start": "20:30", "end": "22:00" }]
+    }
+  }
+]
