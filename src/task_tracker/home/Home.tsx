@@ -32,7 +32,7 @@ export default function Home(): JSX.Element {
         </Box>
 
         <Box className="flex justify-between items-center p-4 pb-0">
-          <Text>{viewModel.isTaskOngoing ? viewModel.startTime : viewModel.currentTime}</Text>
+          <Text className="w-[58.69px]">{viewModel.isTaskOngoing ? viewModel.startTime : viewModel.currentTime}</Text>
 
           {viewModel.isTaskOngoing ? (
             <Button onClick={viewModel.handleEndTask} color="red" className="w-20">
@@ -44,7 +44,7 @@ export default function Home(): JSX.Element {
             </Button>
           )}
 
-          <Text>{viewModel.taskTimer}</Text>
+          <Text className="w-[58.69px]">{viewModel.taskTimer}</Text>
         </Box>
       </Card>
     </Box>
