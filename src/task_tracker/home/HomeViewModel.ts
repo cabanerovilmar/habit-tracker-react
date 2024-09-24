@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { format, differenceInSeconds, addSeconds } from 'date-fns'
-import tasks from './data/tasks.json'
-import { useCurrentTask } from './hooks/useCurrentTask'
 import { saveTasksToLocalStorage } from './data/tasksStorage'
+import tasks from './data/tasks.json'
 import { getCurrentTask } from './domain/getCurrentTask'
 
 export interface TaskPayload {
@@ -45,11 +44,35 @@ export function HomeViewModel(): IHomeViewModel {
   const [startTime, setStartTime] = useState<Date | null>(null)
   const [taskTimer, setTaskTimer] = useState<string | null>('00:00:00')
   const [showTaskPicker, setShowTaskPicker] = useState(false)
-  const [selectedTask, setSelectedTask] = useState<string>(useCurrentTask(false))
+  const [selectedTask, setSelectedTask] = useState<string>('')
   const [showTimeInput, setShowTimeInput] = useState(false)
   const [timeInputValue, setTimeInputValue] = useState('')
+  const [taskPickerTouched, setTaskPickerTouched] = useState(false)
   const taskIntervalRef = useRef<NodeJS.Timeout | null>(null)
-  const currentTask = getCurrentTask(tasks)
+  const fetchIntervalRef = useRef<NodeJS.Timeout | null>(null)
+
+  const fetchTasks = () => {
+    const currentTask = getCurrentTask(tasks)
+    setSelectedTask(currentTask)
+  }
+
+  useEffect(() => {
+    fetchTasks()
+  }, [])
+
+  useEffect(() => {
+    if (!isTaskOngoing && !taskPickerTouched) {
+      fetchIntervalRef.current = setInterval(fetchTasks, 1000)
+    } else if (fetchIntervalRef.current) {
+      clearInterval(fetchIntervalRef.current)
+    }
+
+    return () => {
+      if (fetchIntervalRef.current) {
+        clearInterval(fetchIntervalRef.current)
+      }
+    }
+  }, [isTaskOngoing, taskPickerTouched])
 
   const taskNames = tasks.map(task => ({ value: task.taskName, label: task.taskName }))
 
@@ -97,7 +120,10 @@ export function HomeViewModel(): IHomeViewModel {
     setShowTaskPicker(false)
   }
 
-  const toggleTaskPicker = () => setShowTaskPicker(prev => !prev)
+  const toggleTaskPicker = () => {
+    setShowTaskPicker(prev => !prev)
+    setTaskPickerTouched(true)
+  }
 
   useEffect(() => {
     const updateDateTime = () => {
@@ -174,7 +200,7 @@ export function HomeViewModel(): IHomeViewModel {
       clearTaskFromLocalStorage()
       setCapturedTask('')
       setStartTime(null)
-      setSelectedTask(currentTask)
+      fetchTasks()
       setTaskTimer('00:00:00')
     }
   }
@@ -212,6 +238,7 @@ export function HomeViewModel(): IHomeViewModel {
       setTaskTimer('00:00:00')
     }
   }
+
   return {
     isTaskOngoing,
     handleEndTask,
